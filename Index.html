@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Invoice</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
+<style>
+body {
+  font-family: Calibri, Arial;
+  font-size: 13px;
+}
+
+.invoice {
+  width: 100%;
+  border: 1px solid black;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  background: #d9d9d9;
+  padding: 6px;
+  border-bottom: 1px solid black;
+}
+
+.company {
+  text-align: center;
+  padding: 5px;
+  line-height: 1.4;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, td, th {
+  border: 1px solid black;
+}
+
+td, th {
+  padding: 4px;
+}
+
+.right { text-align: right; }
+.center { text-align: center; }
+
+input {
+  border: none;
+  width: 100%;
+  font-family: Calibri;
+  font-size: 13px;
+}
+
+@media print {
+  button { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="invoice" id="invoice">
+
+<div class="header">TAX INVOICE</div>
+
+<div class="company">
+<b>POTHU JAHNAVI VARA SAI BABY ( SRI LAKSHMI NARASIMHA TRADERS )</b><br>
+Address: S2 Rupa residency, Krishnarayapuram, Visakhapatnam<br>
+India – 530047, Ph: 7660839651<br>
+GSTIN: 37EVEPP0939L1Z1<br>
+Email: srilakshminarasimhatraders26@gmail.com
+</div>
+
+<table>
+<tr>
+<td>Invoice Number: <input id="inv"></td>
+<td>Invoice Date: <input type="date"></td>
+</tr>
+
+<tr>
+<td>Buyer PO Number: PO/25-26/AP1297</td>
+<td>Vehicle Number: <input id="vehicle"></td>
+</tr>
+
+<tr>
+<td>Place Of Supply: (37) Andhra Pradesh</td>
+<td>Driver Name: <input id="driver"></td>
+</tr>
+
+<tr>
+<td>Dispatch From: (37) Andhra Pradesh</td>
+<td>Destination: (37) Andhra Pradesh</td>
+</tr>
+
+<tr>
+<td>
+<b>Billing Address</b><br>
+BIZCOVERY PRIVATE LIMITED<br>
+Door No. 88-12-3747<br>
+GUNTUR, ANDHRA PRADESH<br>
+GSTIN: 37AAKCB1591Q1ZZ
+</td>
+
+<td>
+<b>Shipping Address</b><br>
+2-216, Annavaram Street<br>
+Chodavaram, Anakapalli<br>
+Contact: Deepak Kasireddy
+</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<tr style="background:#d9d9d9;">
+<th>S.No</th>
+<th>Description Of Goods</th>
+<th>HSN Code</th>
+<th>Qty in KG</th>
+<th>Rate/KG</th>
+<th>Amount</th>
+</tr>
+
+<tr>
+<td class="center">1</td>
+<td><input id="desc"></td>
+<td><input id="hsn"></td>
+<td><input type="number" id="qty" oninput="calc()"></td>
+<td><input type="number" id="rate" oninput="calc()"></td>
+<td id="amount" class="right">0</td>
+</tr>
+
+<tr>
+<td colspan="5" class="right">Taxable Value</td>
+<td id="tax" class="right">0</td>
+</tr>
+
+<tr>
+<td colspan="5" class="right">SGST 2.5%</td>
+<td id="sgst" class="right">0</td>
+</tr>
+
+<tr>
+<td colspan="5" class="right">CGST 2.5%</td>
+<td id="cgst" class="right">0</td>
+</tr>
+
+<tr>
+<td colspan="5" class="right"><b>Total</b></td>
+<td id="total" class="right"><b>0</b></td>
+</tr>
+</table>
+
+<br>
+
+Amount Chargeable (In Words): <span id="words"></span><br><br>
+
+Company GST: 37EVEPP0939L1Z1<br>
+Company PAN: EVEPP0939L<br><br>
+
+Payment Terms: On delivery<br><br>
+
+<b>Bank Details</b><br>
+Account Holder Name: Sri Lakshmi Narasimha Traders<br>
+Account Number: 76608396511<br>
+Bank Name: IDFC BANK<br>
+Branch Name: Dabagardens<br>
+IFSC: IDFB0080412<br><br>
+
+<div class="right">
+Pothu Jahnavi Vara Sai Baby
+</div>
+
+<br><br>
+
+Authorised Signatory
+
+</div>
+
+<br>
+
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="window.print()">Print</button>
+
+<script>
+function calc() {
+  let qty = document.getElementById("qty").value || 0;
+  let rate = document.getElementById("rate").value || 0;
+
+  let amt = qty * rate;
+  let sgst = amt * 0.025;
+  let cgst = amt * 0.025;
+  let total = amt + sgst + cgst;
+
+  document.getElementById("amount").innerText = amt.toFixed(2);
+  document.getElementById("tax").innerText = amt.toFixed(2);
+  document.getElementById("sgst").innerText = sgst.toFixed(2);
+  document.getElementById("cgst").innerText = cgst.toFixed(2);
+  document.getElementById("total").innerText = total.toFixed(2);
+
+  document.getElementById("words").innerText = total + " Rupees Only";
+}
+
+function downloadPDF() {
+  html2canvas(document.querySelector("#invoice")).then(canvas => {
+    let img = canvas.toDataURL("image/png");
+    let pdf = new jsPDF();
+    pdf.addImage(img, 'PNG', 0, 0, 210, 290);
+    pdf.save("invoice.pdf");
+  });
+}
+</script>
+
+</body>
+</html>
