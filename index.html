@@ -6,6 +6,9 @@ body { font-family: Arial; margin: 10px; }
 .right { text-align: right; }
 .bold { font-weight: bold; }
 
+p { margin: 2px 0; }
+h2 { margin: 5px 0; }
+
 button {
   padding: 6px 12px;
   margin: 5px;
@@ -36,8 +39,6 @@ th, td { padding: 4px; font-size: 12px; }
 .summary {
   width: 40%;
   margin-left: auto;
-  border-collapse: collapse;
-  margin-top: 5px;
 }
 
 .signature {
@@ -45,11 +46,17 @@ th, td { padding: 4px; font-size: 12px; }
   text-align: right;
 }
 
+input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
 .no-print { display: block; }
 
 @media print {
   body { zoom: 0.85; margin: 5px; }
-  button, .no-print { display: none; }
+  .no-print, button { display: none; }
   table, .address-section { page-break-inside: avoid; }
 }
 </style></head><body><h2 class="center">TAX INVOICE</h2><div class="no-print right">
@@ -61,20 +68,20 @@ th, td { padding: 4px; font-size: 12px; }
 <p>Email: srilakshminarasimhatraders26@gmail.com</p>
 </div><table>
 <tr>
-<td><b>Invoice Number:</b> <input></td>
-<td><b>Invoice Date:</b> <input type="date"></td>
+<td><strong>Invoice Number:</strong> <input></td>
+<td><strong>Invoice Date:</strong> <input type="date"></td>
 </tr>
 <tr>
-<td><b>Buyer PO Number:</b> <input></td>
-<td><b>Vehicle Number:</b> <input></td>
+<td><strong>Buyer PO Number:</strong> <input></td>
+<td><strong>Vehicle Number:</strong> <input></td>
 </tr>
 <tr>
-<td><b>Place Of Supply:</b> (37) Andhra Pradesh</td>
-<td><b>Driver Name:</b> <input></td>
+<td><strong>Place Of Supply:</strong> (37) Andhra Pradesh</td>
+<td><strong>Driver Name:</strong> <input></td>
 </tr>
 <tr>
-<td><b>Dispatch From:</b> (37) Andhra Pradesh</td>
-<td><b>Destination:</b> (37) Andhra Pradesh</td>
+<td><strong>Dispatch From:</strong> (37) Andhra Pradesh</td>
+<td><strong>Destination:</strong> (37) Andhra Pradesh</td>
 </tr>
 </table><div class="address-section"><div class="address-box">
 <p class="bold">Billing Address</p>
@@ -119,14 +126,14 @@ th, td { padding: 4px; font-size: 12px; }
 <tr><td>CGST 2.5%</td><td id="cgst">0</td></tr>
 <tr><td>IGST 0%</td><td id="igst">0</td></tr>
 <tr><td><b>Total</b></td><td id="total"><b>0</b></td></tr>
-</table><p><b>Amount Chargeable (In Words):</b> <span id="words"></span></p><p><b>Company GST:</b> 37EVEPP0939L1Z1</p>
-<p><b>Company PAN:</b> EVEPP0939L</p>
-<p><b>Payment Terms:</b> On delivery</p><p class="bold">Bank Details</p>
-<p><b>Account Holder Name:</b> Sri Lakshmi Narasimha Traders</p>
-<p><b>Account Number:</b> 76608396511</p>
-<p><b>Bank Name:</b> IDFC BANK</p>
-<p><b>Branch Name:</b> Dabagardens</p>
-<p><b>IFSC:</b> IDFB0080412</p><div class="signature">
+</table><p><strong>Amount Chargeable (In Words):</strong> <span id="words"></span></p><p><strong>Company GST:</strong> 37EVEPP0939L1Z1</p>
+<p><strong>Company PAN:</strong> EVEPP0939L</p>
+<p><strong>Payment Terms:</strong> On delivery</p><p class="bold">Bank Details</p>
+<p><strong>Account Holder Name:</strong> Sri Lakshmi Narasimha Traders</p>
+<p><strong>Account Number:</strong> 76608396511</p>
+<p><strong>Bank Name:</strong> IDFC BANK</p>
+<p><strong>Branch Name:</strong> Dabagardens</p>
+<p><strong>IFSC:</strong> IDFB0080412</p><div class="signature">
 <p>Pothu Jahnavi Vara Sai Baby</p>
 <p class="bold">Authorised Signatory</p>
 </div><script>
@@ -136,9 +143,13 @@ function setHSN(){
   const item = document.getElementById('item').value;
   const hsn = document.getElementById('hsn');
 
-  if(item === 'Black Pepper') hsn.value = '09041130';
-  else if(item.includes('Turmeric')) hsn.value = '09103030';
-  else hsn.value = '';
+  const map = {
+    "Black Pepper": "09041130",
+    "Turmeric Finger Double Polished": "09103030",
+    "Fresh Turmeric": "09103030"
+  };
+
+  hsn.value = map[item] || "";
 }
 
 function addItem(){
@@ -167,7 +178,9 @@ function calc(){
  document.getElementById('cgst').innerText=cg.toLocaleString('en-IN',{minimumFractionDigits:2});
  document.getElementById('igst').innerText=ig.toLocaleString('en-IN',{minimumFractionDigits:2});
  document.getElementById('total').innerText=final.toLocaleString('en-IN',{minimumFractionDigits:2});
- document.getElementById('words').innerText='Rupees '+final.toLocaleString('en-IN')+' Only';
+
+ document.getElementById('words').innerText =
+   "Rupees " + final.toLocaleString('en-IN') + " Only";
 }
 </script></body>
 </html>
