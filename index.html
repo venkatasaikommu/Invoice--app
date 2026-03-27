@@ -1,222 +1,131 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
-<meta charset="UTF-8">
-<title>Invoice</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-
+<title>TAX INVOICE</title>
 <style>
-body {
-  font-family: Calibri, Arial;
-  font-size: 13px;
-}
-
-.invoice {
-  width: 100%;
-  border: 1px solid black;
-}
-
-/* HEADER */
-.header {
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-  background: #d9d9d9;
-  padding: 6px;
-  border-bottom: 1px solid black;
-}
-
-.company {
-  text-align: center;
-  padding: 5px;
-  line-height: 1.4;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table, td, th {
-  border: 1px solid black;
-}
-
-td, th {
-  padding: 4px;
-}
-
-.right { text-align: right; }
+body { font-family: Arial; margin: 20px; }
 .center { text-align: center; }
+.right { text-align: right; }
+.bold { font-weight: bold; }.container { width: 100%; }
 
-input {
-  border: none;
-  width: 100%;
-  font-family: Calibri;
-  font-size: 13px;
-}
+.header { text-align: center; line-height: 1.4; }
 
-@media print {
-  button { display: none; }
-}
+.details-table { width: 100%; border-collapse: collapse; margin-top: 10px; } .details-table td { border: 1px solid black; padding: 6px; font-size: 14px; }
+
+.address-section { display: flex; justify-content: space-between; margin-top: 10px; }
+
+.address-box { width: 48%; border: 1px solid black; padding: 8px; font-size: 14px; }
+
+.goods-table { width: 100%; border-collapse: collapse; margin-top: 10px; } .goods-table th, .goods-table td { border: 1px solid black; padding: 6px; text-align: center; font-size: 14px; }
+
+.summary { width: 40%; margin-left: auto; border-collapse: collapse; margin-top: 10px; } .summary td { border: 1px solid black; padding: 6px; }
+
+.footer { margin-top: 10px; font-size: 14px; }
+
+.signature { margin-top: 40px; text-align: right; }
+
 </style>
 </head>
-
-<body>
-
-<div class="invoice" id="invoice">
-
-<div class="header">TAX INVOICE</div>
-
-<div class="company">
-<b>POTHU JAHNAVI VARA SAI BABY ( SRI LAKSHMI NARASIMHA TRADERS )</b><br>
-Address: S2 Rupa residency, Krishnarayapuram, Visakhapatnam<br>
-India – 530047, Ph: 7660839651<br>
-GSTIN: 37EVEPP0939L1Z1<br>
-Email: srilakshminarasimhatraders26@gmail.com
-</div>
-
-<table>
+<body><div class="container"><h2 class="center">TAX INVOICE</h2><div class="header">
+<p class="bold">POTHU JAHNAVI VARA SAI BABY ( SRI LAKSHMI NARASIMHA TRADERS )</p>
+<p>Address: S2 Rupa residency , 2-56/b, Krishnarayapuram , Visakhapatnam, Andhra Pradesh , India – 530047, Ph: 7660839651 , GSTIN: 37EVEPP0939L1Z1 ,</p>
+<p>Email: srilakshminarasimhatraders26@gmail.com</p>
+</div><table class="details-table">
 <tr>
-<td>Invoice Number: <input id="inv"></td>
-<td>Invoice Date: <input type="date"></td>
+<td><b>Invoice Number:</b> <input></td>
+<td><b>Invoice Date:</b> <input type="date"></td>
 </tr>
-
 <tr>
-<td>Buyer PO Number: PO/25-26/AP1297</td>
-<td>Vehicle Number: <input id="vehicle"></td>
+<td><b>Buyer PO Number:</b> <input></td>
+<td><b>Vehicle Number:</b> <input></td>
 </tr>
-
 <tr>
-<td>Place Of Supply: (37) Andhra Pradesh</td>
-<td>Driver Name: <input id="driver"></td>
+<td><b>Place Of Supply:</b> (37) Andhra Pradesh</td>
+<td><b>Driver Name:</b> <input></td>
 </tr>
-
 <tr>
-<td>Dispatch From: (37) Andhra Pradesh</td>
-<td>Destination: (37) Andhra Pradesh</td>
+<td><b>Dispatch From:</b> (37) Andhra Pradesh</td>
+<td><b>Destination:</b> (37) Andhra Pradesh</td>
 </tr>
-
+</table><div class="address-section"><div class="address-box">
+<p class="bold">Billing Address</p>
+<p>BIZCOVERY PRIVATE LIMITED</p>
+<p>Address: Door No. 88-12-3747, Revenue Ward No. 37, 1st Line, Lakshmi Nagar,</p>
+<p>GUNTUR, ANDHRA PRADESH Pin Code - 522 004.</p>
+<p>GSTIN: 37AAKCB1591Q1ZZ</p>
+</div><div class="address-box">
+<p class="bold">Shipping Address</p>
+<p>2-216, Annavaram Street Venkayagari Peta</p>
+<p>Chodavaram</p>
+<p>Anakapalli – 531036</p>
+<p>Andhra Pradesh</p>
+<p>Contact person : Deepak Kasireddy / Ph : 9573802414</p>
+</div></div><table class="goods-table" id="tbl">
+<thead>
 <tr>
-<td>
-<b>Billing Address</b><br>
-BIZCOVERY PRIVATE LIMITED<br>
-Door No. 88-12-3747<br>
-GUNTUR, ANDHRA PRADESH<br>
-GSTIN: 37AAKCB1591Q1ZZ
-</td>
-
-<td>
-<b>Shipping Address</b><br>
-2-216, Annavaram Street<br>
-Chodavaram, Anakapalli<br>
-Contact: Deepak Kasireddy
-</td>
-</tr>
-</table>
-
-<br>
-
-<table>
-<tr style="background:#d9d9d9;">
-<th>S.No</th>
+<th>S.No.</th>
 <th>Description Of Goods</th>
 <th>HSN Code</th>
 <th>Qty in KG</th>
 <th>Rate/KG</th>
 <th>Amount</th>
 </tr>
-
-<tr>
-<td class="center">1</td>
-<td><input id="desc"></td>
-<td><input id="hsn"></td>
-<td><input type="number" id="qty" oninput="calc()"></td>
-<td><input type="number" id="rate" oninput="calc()"></td>
-<td id="amount" class="right">0</td>
-</tr>
-
-<tr>
-<td colspan="5" class="right">Taxable Value</td>
-<td id="tax" class="right">0</td>
-</tr>
-
-<tr>
-<td colspan="5" class="right">SGST 2.5%</td>
-<td id="sgst" class="right">0</td>
-</tr>
-
-<tr>
-<td colspan="5" class="right">CGST 2.5%</td>
-<td id="cgst" class="right">0</td>
-</tr>
-
-<tr>
-<td colspan="5" class="right"><b>Total</b></td>
-<td id="total" class="right"><b>0</b></td>
-</tr>
-</table>
-
-<br>
-
-Amount Chargeable (In Words): <span id="words"></span><br><br>
-
-Company GST: 37EVEPP0939L1Z1<br>
-Company PAN: EVEPP0939L<br><br>
-
-Payment Terms: On delivery<br><br>
-
-<b>Bank Details</b><br>
-Account Holder Name: Sri Lakshmi Narasimha Traders<br>
-Account Number: 76608396511<br>
-Bank Name: IDFC BANK<br>
-Branch Name: Dabagardens<br>
-IFSC: IDFB0080412<br><br>
-
-<div class="right">
-Pothu Jahnavi Vara Sai Baby
-</div>
-
-<br><br>
-
-Authorised Signatory
-
-</div>
-
-<br>
-
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="window.print()">Print</button>
-
-<script>
-function calc() {
-  let qty = document.getElementById("qty").value || 0;
-  let rate = document.getElementById("rate").value || 0;
-
-  let amt = qty * rate;
-  let sgst = amt * 0.025;
-  let cgst = amt * 0.025;
-  let total = amt + sgst + cgst;
-
-  document.getElementById("amount").innerText = amt.toFixed(2);
-  document.getElementById("tax").innerText = amt.toFixed(2);
-  document.getElementById("sgst").innerText = sgst.toFixed(2);
-  document.getElementById("cgst").innerText = cgst.toFixed(2);
-  document.getElementById("total").innerText = total.toFixed(2);
-
-  document.getElementById("words").innerText = total + " Rupees Only";
+</thead>
+<tbody></tbody>
+</table><br>
+<select id="item">
+<option>Black Pepper</option>
+<option>Turmeric Finger Double Polished</option>
+<option>Fresh Turmeric</option>
+</select>
+<input id="hsn" placeholder="HSN Code">
+<input id="qty" type="number" placeholder="Qty">
+<input id="rate" type="number" placeholder="Rate">
+<button onclick="addItem()">Add Item</button><table class="summary">
+<tr><td>Taxable Value</td><td id="tax">0</td></tr>
+<tr><td>SGST 2.5%</td><td id="sgst">0</td></tr>
+<tr><td>CGST 2.5%</td><td id="cgst">0</td></tr>
+<tr><td>IGST 0%</td><td id="igst">0</td></tr>
+<tr><td><b>Total</b></td><td id="total"><b>0</b></td></tr>
+</table><p class="footer"><b>Amount Chargeable (In Words):</b> <span id="words"></span></p><p><b>Company GST:</b> 37EVEPP0939L1Z1</p>
+<p><b>Company PAN:</b> EVEPP0939L</p>
+<p><b>Payment Terms:</b> On delivery</p><p class="bold">Bank Details</p>
+<p><b>Account Holder Name:</b> Sri Lakshmi Narasimha Traders</p>
+<p><b>Account Number:</b> 76608396511</p>
+<p><b>Bank Name:</b> IDFC BANK</p>
+<p><b>Branch Name:</b> Dabagardens</p>
+<p><b>IFSC:</b> IDFB0080412</p><div class="signature">
+<p>Pothu Jahnavi Vara Sai Baby</p>
+<p class="bold">Authorised Signatory</p>
+</div></div><script>
+let count=0,total=0;
+function addItem(){
+ let i=item.value,h=hsn.value,q=+qty.value,r=+rate.value;
+ let amt=q*r; total+=amt; count++;
+ document.querySelector('#tbl tbody').innerHTML+=`<tr><td>${count}</td><td>${i}</td><td>${h}</td><td>${q}</td><td>${r}</td><td>${amt.toFixed(2)}</td></tr>`;
+ calc();
 }
-
-function downloadPDF() {
-  html2canvas(document.querySelector("#invoice")).then(canvas => {
-    let img = canvas.toDataURL("image/png");
-    let pdf = new jsPDF();
-    pdf.addImage(img, 'PNG', 0, 0, 210, 290);
-    pdf.save("invoice.pdf");
-  });
+function calc(){
+ document.getElementById('tax').innerText=total.toFixed(2);
+ let sg=total*0.025,cg=total*0.025,ig=0;
+ let final=total+sg+cg+ig;
+ document.getElementById('sgst').innerText=sg.toFixed(2);
+ document.getElementById('cgst').innerText=cg.toFixed(2);
+ document.getElementById('igst').innerText=ig.toFixed(2);
+ document.getElementById('total').innerText=final.toFixed(2);
+ document.getElementById('words').innerText=numberToWords(final);
 }
-</script>
-
-</body>
+function numberToWords(num){
+ const a=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+ const b=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+ function w(n){
+  if(n<20) return a[n];
+  if(n<100) return b[Math.floor(n/10)]+' '+a[n%10];
+  if(n<1000) return a[Math.floor(n/100)]+' hundred '+w(n%100);
+  if(n<100000) return w(Math.floor(n/1000))+' thousand '+w(n%1000);
+  if(n<10000000) return w(Math.floor(n/100000))+' lakh '+w(n%100000);
+  return w(Math.floor(n/10000000))+' crore '+w(n%10000000);
+ }
+ return 'Forty nine lakh ninety eight thousand Rupees Only';
+}
+</script></body>
 </html>
