@@ -1,28 +1,54 @@
 <!DOCTYPE html><html>
 <head>
-<title>TAX INVOICE</title><style>
-body { font-family: Arial; margin: 10px; }
-.center { text-align: center; }
-.right { text-align: right; }
+<title>TAX INVOICE</title><!-- PDF LIBRARY --><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script><style>
+body { font-family: Arial; margin: 5px; }
+
+h3 { text-align: center; margin: 5px 0; }
 
 table { width: 100%; border-collapse: collapse; }
-th, td { border: 1px solid black; padding: 5px; font-size: 13px; }
+th, td { border: 1px solid black; padding: 3px; font-size: 12px; }
 
-.header { border:1px solid black; padding:10px; text-align:center; }
+.header {
+  border: 1px solid black;
+  padding: 6px;
+  text-align: center;
+  line-height: 1.2;
+}
 
-.address-table td { vertical-align: top; height:120px; }
+.address-table td {
+  vertical-align: top;
+}
 
-.signature { text-align:right; margin-top:30px; }
+.signature {
+  text-align: right;
+  margin-top: 15px;
+}
 
-.no-print { margin:10px 0; }
+.no-print {
+  margin: 5px 0;
+}
+
+#invoice {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 5mm;
+  background: white;
+}
+
+/* PRINT CLEAN */
+@page {
+  size: A4;
+  margin: 5mm;
+}
 
 @media print {
-  .no-print { display:none; }
-  body { zoom:0.9; }
+  .no-print { display: none; }
+  body { zoom: 0.8; }
 }
-</style></head><body><h3 class="center">TAX INVOICE</h3><div class="no-print right">
+</style></head><body><div class="no-print" style="text-align:right;">
+<button onclick="downloadPDF()">Download PDF</button>
 <button onclick="window.print()">Print</button>
-</div><div class="header">
+</div><div id="invoice"><h3>TAX INVOICE</h3><div class="header">
 <b>POTHU JAHNAVI VARA SAI BABY ( SRI LAKSHMI NARASIMHA TRADERS )</b><br>
 Address: S2 Rupa residency , 2-56/b, Krishnarayapuram , Visakhapatnam, Andhra Pradesh , India – 530047<br>
 Ph: 7660839651 , GSTIN: 37EVEPP0939L1Z1<br>
@@ -96,7 +122,7 @@ Contact person : Deepak Kasireddy / Ph : 9573802414
 <p>IFSC: IDFB0080412</p><div class="signature">
 <p>Pothu Jahnavi Vara Sai Baby</p>
 <p><b>Authorised Signatory</b></p>
-</div><script>
+</div></div><script>
 let total=0,count=0;
 
 function setHSN(){
@@ -149,7 +175,6 @@ function calc(){
 }
 
 function numberToWords(num){
-
  if(num===0) return "Zero Rupees Only";
 
  const ones=["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine",
@@ -172,8 +197,19 @@ function numberToWords(num){
   return convertIndian(Math.floor(n/10000000))+" Crore"+(n%10000000?" "+convertIndian(n%10000000):"");
  }
 
- let words=convertIndian(Math.floor(num)).trim();
- return words+" Rupees Only";
+ return convertIndian(Math.floor(num)) + " Rupees Only";
+}
+
+function downloadPDF(){
+ const element=document.getElementById("invoice");
+
+ html2pdf().set({
+  margin:5,
+  filename:'Invoice.pdf',
+  image:{type:'jpeg',quality:1},
+  html2canvas:{scale:3},
+  jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+ }).from(element).save();
 }
 </script></body>
 </html>
