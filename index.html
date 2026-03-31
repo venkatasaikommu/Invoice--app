@@ -4,100 +4,64 @@
 body { font-family: Arial; margin: 10px; }
 .center { text-align: center; }
 .right { text-align: right; }
-.bold { font-weight: bold; }
 
-p { margin: 2px 0; }
-h2 { margin: 5px 0; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid black; padding: 5px; font-size: 13px; }
 
-button {
-  padding: 6px 12px;
-  margin: 5px;
-  border: 1px solid black;
-  background: #f2f2f2;
-  cursor: pointer;
-}
+.header { border:1px solid black; padding:10px; text-align:center; }
 
-.header { text-align: center; line-height: 1.2; }
+.address-table td { vertical-align: top; height:120px; }
 
-table { width: 100%; border-collapse: collapse; margin-top: 5px; }
-table, th, td { border: 1px solid black; }
-th, td { padding: 4px; font-size: 12px; }
+.signature { text-align:right; margin-top:30px; }
 
-.address-section {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5px;
-}
-
-.address-box {
-  width: 48%;
-  border: 1px solid black;
-  padding: 6px;
-  font-size: 12px;
-}
-
-.summary {
-  width: 40%;
-  margin-left: auto;
-}
-
-.signature {
-  margin-top: 30px;
-  text-align: right;
-}
-
-input {
-  border: none;
-  outline: none;
-  width: 100%;
-}
-
-.no-print { display: block; }
+.no-print { margin:10px 0; }
 
 @media print {
-  body { zoom: 0.85; margin: 5px; }
-  .no-print, button { display: none; }
-  table, .address-section { page-break-inside: avoid; }
+  .no-print { display:none; }
+  body { zoom:0.9; }
 }
-</style></head><body><h2 class="center">TAX INVOICE</h2><div class="no-print right">
-  <button onclick="window.print()">Print</button>
-  <button onclick="window.print()">Download PDF</button>
+</style></head><body><h3 class="center">TAX INVOICE</h3><div class="no-print right">
+<button onclick="window.print()">Print</button>
 </div><div class="header">
-<p class="bold">POTHU JAHNAVI VARA SAI BABY ( SRI LAKSHMI NARASIMHA TRADERS )</p>
-<p>Address: S2 Rupa residency , 2-56/b, Krishnarayapuram , Visakhapatnam, Andhra Pradesh , India – 530047, Ph: 7660839651 , GSTIN: 37EVEPP0939L1Z1 ,</p>
-<p>Email: srilakshminarasimhatraders26@gmail.com</p>
+<b>POTHU JAHNAVI VARA SAI BABY ( SRI LAKSHMI NARASIMHA TRADERS )</b><br>
+Address: S2 Rupa residency , 2-56/b, Krishnarayapuram , Visakhapatnam, Andhra Pradesh , India – 530047<br>
+Ph: 7660839651 , GSTIN: 37EVEPP0939L1Z1<br>
+Email: srilakshminarasimhatraders26@gmail.com
 </div><table>
 <tr>
-<td><strong>Invoice Number:</strong> <input></td>
-<td><strong>Invoice Date:</strong> <input type="date"></td>
+<td><b>Invoice Number:</b> <input></td>
+<td><b>Invoice Date:</b> <input type="date"></td>
 </tr>
 <tr>
-<td><strong>Buyer PO Number:</strong> <input></td>
-<td><strong>Vehicle Number:</strong> <input></td>
+<td><b>Buyer PO Number:</b> <input></td>
+<td><b>Vehicle Number:</b> <input></td>
 </tr>
 <tr>
-<td><strong>Place Of Supply:</strong> (37) Andhra Pradesh</td>
-<td><strong>Driver Name:</strong> <input></td>
+<td><b>Place Of Supply:</b> (37) Andhra Pradesh</td>
+<td><b>Driver Name:</b> <input></td>
 </tr>
 <tr>
-<td><strong>Dispatch From:</strong> (37) Andhra Pradesh</td>
-<td><strong>Destination:</strong> (37) Andhra Pradesh</td>
+<td><b>Dispatch From:</b> (37) Andhra Pradesh</td>
+<td><b>Destination:</b> (37) Andhra Pradesh</td>
 </tr>
-</table><div class="address-section"><div class="address-box">
-<p class="bold">Billing Address</p>
-<p>BIZCOVERY PRIVATE LIMITED</p>
-<p>Address: Door No. 88-12-3747, Revenue Ward No. 37, 1st Line, Lakshmi Nagar,</p>
-<p>GUNTUR, ANDHRA PRADESH Pin Code - 522 004.</p>
-<p>GSTIN: 37AAKCB1591Q1ZZ</p>
-</div><div class="address-box">
-<p class="bold">Shipping Address</p>
-<p>2-216, Annavaram Street Venkayagari Peta</p>
-<p>Chodavaram</p>
-<p>Anakapalli – 531036</p>
-<p>Andhra Pradesh</p>
-<p>Contact person : Deepak Kasireddy / Ph : 9573802414</p>
-</div></div><table id="tbl">
-<thead>
+</table><table class="address-table">
+<tr>
+<td width="50%">
+<b>Billing Address</b><br><br>
+BIZCOVERY PRIVATE LIMITED<br>
+Address: Door No. 88-12-3747, Revenue Ward No. 37, 1st Line, Lakshmi Nagar,<br>
+GUNTUR, ANDHRA PRADESH Pin Code - 522 004.<br>
+GSTIN: 37AAKCB1591Q1ZZ
+</td><td width="50%">
+<b>Shipping Address</b><br><br>
+2-216, Annavaram Street Venkayagari Peta<br>
+Chodavaram<br>
+Anakapalli – 531036<br>
+Andhra Pradesh<br><br>
+Contact person : Deepak Kasireddy / Ph : 9573802414
+</td>
+</tr>
+</table><table id="items">
 <tr>
 <th>S.No.</th>
 <th>Description Of Goods</th>
@@ -106,81 +70,110 @@ input {
 <th>Rate/KG</th>
 <th>Amount</th>
 </tr>
-</thead>
-<tbody></tbody>
-</table><div class="no-print"><select id="item" onchange="setHSN()">
-<option value="">--Select Item--</option>
+</table><div class="no-print">
+<select id="item" onchange="setHSN()">
+<option value="">Select Item</option>
 <option value="Black Pepper">Black Pepper</option>
 <option value="Turmeric Finger Double Polished">Turmeric Finger Double Polished</option>
 <option value="Fresh Turmeric">Fresh Turmeric</option>
-</select><select id="hsn">
-<option value="">--HSN Code--</option>
-<option value="09041130">09041130</option>
-<option value="09103030">09103030</option>
-</select><input id="qty" type="number" placeholder="Qty">
+</select><input id="hsn" placeholder="HSN Code" readonly>
+<input id="qty" type="number" placeholder="Qty">
 <input id="rate" type="number" placeholder="Rate"><button onclick="addItem()">Add Item</button>
 
-</div><table class="summary">
+</div><table>
 <tr><td>Taxable Value</td><td id="tax">0</td></tr>
 <tr><td>SGST 2.5%</td><td id="sgst">0</td></tr>
 <tr><td>CGST 2.5%</td><td id="cgst">0</td></tr>
 <tr><td>IGST 0%</td><td id="igst">0</td></tr>
 <tr><td><b>Total</b></td><td id="total"><b>0</b></td></tr>
-</table><p><strong>Amount Chargeable (In Words):</strong> <span id="words"></span></p><p><strong>Company GST:</strong> 37EVEPP0939L1Z1</p>
-<p><strong>Company PAN:</strong> EVEPP0939L</p>
-<p><strong>Payment Terms:</strong> On delivery</p><p class="bold">Bank Details</p>
-<p><strong>Account Holder Name:</strong> Sri Lakshmi Narasimha Traders</p>
-<p><strong>Account Number:</strong> 76608396511</p>
-<p><strong>Bank Name:</strong> IDFC BANK</p>
-<p><strong>Branch Name:</strong> Dabagardens</p>
-<p><strong>IFSC:</strong> IDFB0080412</p><div class="signature">
+</table><p><b>Amount Chargeable (In Words):</b> <span id="words"></span></p><p><b>Company GST:</b> 37EVEPP0939L1Z1</p>
+<p><b>Company PAN:</b> EVEPP0939L</p>
+<p><b>Payment Terms:</b> On delivery</p><p><b>Bank Details</b></p>
+<p>Account Holder Name: Sri Lakshmi Narasimha Traders</p>
+<p>Account Number: 76608396511</p>
+<p>Bank Name: IDFC BANK</p>
+<p>Branch Name: Dabagardens</p>
+<p>IFSC: IDFB0080412</p><div class="signature">
 <p>Pothu Jahnavi Vara Sai Baby</p>
-<p class="bold">Authorised Signatory</p>
+<p><b>Authorised Signatory</b></p>
 </div><script>
-let count=0,total=0;
+let total=0,count=0;
 
 function setHSN(){
-  const item = document.getElementById('item').value;
-  const hsn = document.getElementById('hsn');
-
-  const map = {
-    "Black Pepper": "09041130",
-    "Turmeric Finger Double Polished": "09103030",
-    "Fresh Turmeric": "09103030"
-  };
-
-  hsn.value = map[item] || "";
+ const map={
+  "Black Pepper":"09041130",
+  "Turmeric Finger Double Polished":"09103030",
+  "Fresh Turmeric":"09103030"
+ };
+ document.getElementById("hsn").value = map[item.value] || "";
 }
 
 function addItem(){
- let i=item.value,h=hsn.value,q=+qty.value,r=+rate.value;
- let amt=q*r; total+=amt; count++;
+ let i=item.value;
+ let h=hsn.value;
+ let q=Number(qty.value);
+ let r=Number(rate.value);
 
- document.querySelector('#tbl tbody').innerHTML +=
- `<tr>
-   <td>${count}</td>
-   <td>${i}</td>
-   <td>${h}</td>
-   <td>${q}</td>
-   <td>${r}</td>
-   <td>${amt.toLocaleString('en-IN',{minimumFractionDigits:2})}</td>
- </tr>`;
+ if(!i || !q || !r) return;
 
- calc();
+ let amt=q*r;
+ total+=amt;
+ count++;
+
+ document.getElementById("items").innerHTML += `
+ <tr>
+ <td>${count}</td>
+ <td>${i}</td>
+ <td>${h}</td>
+ <td>${q}</td>
+ <td>${r}</td>
+ <td>${amt.toLocaleString('en-IN')}</td>
+ </tr>`;
+
+ calc();
 }
 
 function calc(){
- let sg=total*0.025,cg=total*0.025,ig=0;
- let final=total+sg+cg+ig;
+ let sg=total*0.025;
+ let cg=total*0.025;
+ let ig=0;
+ let final=total+sg+cg+ig;
 
- document.getElementById('tax').innerText=total.toLocaleString('en-IN',{minimumFractionDigits:2});
- document.getElementById('sgst').innerText=sg.toLocaleString('en-IN',{minimumFractionDigits:2});
- document.getElementById('cgst').innerText=cg.toLocaleString('en-IN',{minimumFractionDigits:2});
- document.getElementById('igst').innerText=ig.toLocaleString('en-IN',{minimumFractionDigits:2});
- document.getElementById('total').innerText=final.toLocaleString('en-IN',{minimumFractionDigits:2});
+ document.getElementById("tax").innerText=total.toLocaleString('en-IN');
+ document.getElementById("sgst").innerText=sg.toLocaleString('en-IN');
+ document.getElementById("cgst").innerText=cg.toLocaleString('en-IN');
+ document.getElementById("igst").innerText=ig.toLocaleString('en-IN');
+ document.getElementById("total").innerText=final.toLocaleString('en-IN');
 
- document.getElementById('words').innerText =
-   "Rupees " + final.toLocaleString('en-IN') + " Only";
+ document.getElementById("words").innerText = numberToWords(final);
+}
+
+function numberToWords(num){
+
+ if(num===0) return "Zero Rupees Only";
+
+ const ones=["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine",
+ "Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen",
+ "Seventeen","Eighteen","Nineteen"];
+
+ const tens=["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+
+ function convert(n){
+  if(n<20) return ones[n];
+  if(n<100) return tens[Math.floor(n/10)] + (n%10?" "+ones[n%10]:"");
+  if(n<1000) return ones[Math.floor(n/100)]+" Hundred"+(n%100?" "+convert(n%100):"");
+  return "";
+ }
+
+ function convertIndian(n){
+  if(n<1000) return convert(n);
+  if(n<100000) return convertIndian(Math.floor(n/1000))+" Thousand"+(n%1000?" "+convert(n%1000):"");
+  if(n<10000000) return convertIndian(Math.floor(n/100000))+" Lakh"+(n%100000?" "+convertIndian(n%100000):"");
+  return convertIndian(Math.floor(n/10000000))+" Crore"+(n%10000000?" "+convertIndian(n%10000000):"");
+ }
+
+ let words=convertIndian(Math.floor(num)).trim();
+ return words+" Rupees Only";
 }
 </script></body>
 </html>
